@@ -22,3 +22,15 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+
+# Frontend specific ignores
+/user-management-frontend/node_modules
+/user-management-frontend/dist
+/user-management-frontend/.env
+/user-management-frontend/.env.local
+/user-management-frontend/.env.*.local
+/user-management-frontend/npm-debug.log*
+/user-management-frontend/yarn-debug.log*
+/user-management-frontend/yarn-error.log*
+/user-management-frontend/pnpm-debug.log*

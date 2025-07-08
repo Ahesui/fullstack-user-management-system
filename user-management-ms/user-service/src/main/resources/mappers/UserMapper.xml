@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace属性：必须指向我们刚刚创建的Mapper接口的完整路径 -->
+<mapper namespace="com.example.user_service.mapper.UserMapper">
+
+    <!--
+      id属性：必须与Mapper接口中的方法名完全一致 (findAll)
+      resultType属性：指定SQL查询结果应该映射到哪个Java类型。
+                      我们之前配置了type-aliases-package，所以可以直接写User，
+                      否则需要写完整的 com.example.usermanagementsystem.entity.User
+    -->
+    
+ 
+
+
+    <!-- 
+    id="insert" 对应接口中的方法名
+    parameterType="User" 指定了传入的参数类型是User对象
+    VALUES (#{username}, #{email}, #{age})
+    -->
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="User">
+        INSERT INTO t_user (username, email, age)
+        
+        VALUES (#{username}, #{email}, #{age})
+    </insert>
+
+    <!-- ... 已有标签 ... -->
+<select id="findById" resultType="User">
+    SELECT
+        id, username, email, age, create_time AS createTime
+    FROM
+        t_user
+    WHERE
+        id = #{id}
+</select>
+
+
+<update id="update" parameterType="User">
+    UPDATE t_user
+    SET
+        username = #{username},
+        email = #{email},
+        age = #{age}
+    WHERE
+        id = #{id}
+</update>
+
+<!-- ... 已有标签 ... -->
+
+<delete id="deleteById">
+    DELETE FROM t_user WHERE id = #{id}
+</delete>
+
+<select id="findAll" resultType="User">
+    SELECT
+        id, username, email, age, create_time AS createTime
+    FROM
+        t_user
+    <where>
+        <if test="keyword != null and keyword != ''">
+            username LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </where>
+    ORDER BY id DESC
+</select>
+</mapper>
